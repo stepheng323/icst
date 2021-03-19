@@ -5,11 +5,12 @@ function Form() {
   const [values, setValues] = useState({ name: '', category: '' });
   const [loadingCatergory, setLoadingCategory] = useState(true);
   const [categoryOptions, setCategoryOptions] = useState([]);
-  const catergoriesUrl = 'http://questence.tqfe.net/api/v1/categories';
   const [displayValue, setDisplayValue]= useState(null);
-
+  
+  
   useEffect(() => {
     const fetchCategories = async () => {
+      const catergoriesUrl = 'http://questence.tqfe.net/api/v1/categories';
       try {
         const { data } = await axios.get(catergoriesUrl);
         setCategoryOptions(data.data);
