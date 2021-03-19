@@ -5,8 +5,8 @@ function Form() {
   const [values, setValues] = useState({ name: '', category: '' });
   const [loadingCatergory, setLoadingCategory] = useState(true);
   const [categoryOptions, setCategoryOptions] = useState([]);
-  const [showResult, setShowResult] = useState(false);
   const catergoriesUrl = 'http://questence.tqfe.net/api/v1/categories';
+  const [displayValue, setDisplayValue]= useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -31,7 +31,11 @@ function Form() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowResult(true);
+    if(!values.category || !values.name){
+      return
+    }
+    setDisplayValue(values);
+    setValues({})
   };
 
   return (
@@ -45,6 +49,7 @@ function Form() {
         <label>
           Category:
           <select name="category" onChange={handleChange}>
+          <option>Please select</option>
             {!loadingCatergory ? (
               categoryOptions.map((categoryOption) => {
                 const { name, id } = categoryOption;
@@ -61,10 +66,10 @@ function Form() {
         </label>
         <input type="submit" value="Submit" />
       </form>
-      {showResult && (
+      {displayValue && (
         <div>
-          <p>Name: {values.name}</p>
-          <p>Category: {values.category}</p>
+          <p>Name: {displayValue.name}</p>
+          <p>Category: {displayValue.category}</p>
         </div>
       )}
     </div>
