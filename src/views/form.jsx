@@ -36,7 +36,7 @@ function Form() {
       return
     }
     setDisplayValue(values);
-    setValues({})
+    setValues({ name: '', category: '' })
   };
 
   return (
@@ -44,12 +44,12 @@ function Form() {
       <form onSubmit={handleSubmit}>
         <label>
           Name:
-          <input onChange={handleChange} type="text" name="name" />
+          <input onChange={handleChange} value={values.name} type="text" name="name" />
         </label>
 
         <label>
           Category:
-          <select name="category" onChange={handleChange}>
+          <select name="category" value={values.category} onChange={handleChange}>
           <option>Please select</option>
             {!loadingCatergory ? (
               categoryOptions.map((categoryOption) => {
